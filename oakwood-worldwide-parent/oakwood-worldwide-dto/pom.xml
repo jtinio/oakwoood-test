@@ -1,0 +1,34 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.oakwood</groupId>
+		<artifactId>oakwood-worldwide-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>oakwood-worldwide-dto</artifactId>
+	<description>Oakwood Worldwide dto module</description>
+	<developers>
+		<developer>
+			<name>Johnlery Tinio</name>
+			<organization>Oakwood Worldwide</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>Pacific Time Zone UTC-08:00</timezone>
+		</developer>
+	</developers>
+	<dependencies>
+		<dependency>
+			<groupId>com.oakwood</groupId>
+			<artifactId>oakwood-worldwide-utility</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+	</dependencies>
+</project>

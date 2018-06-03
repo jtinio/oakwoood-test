@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	objectQuotingStrategy="QUOTE_ALL_OBJECTS"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+                      
+	<includeAll path="database/2018/june/week1" />
+	
+	<!-- there use to be a problem with the includeAll tag in liquibase when 
+		deploying as jar files on spring boot, see this issue (https://liquibase.jira.com/browse/CORE-2869). 
+		It should be fix meanwhile, but at the moment I could not make it run with 
+		the includeAll tag. As a solution for the problem I use this explicitly defined 
+		the changelog files: -->
+<!-- 	<include relativeToChangelogFile="false" -->
+<!-- 		file="classpath:database/2018/june/week1/changelog.201806021112.xml" /> -->
+</databaseChangeLog>

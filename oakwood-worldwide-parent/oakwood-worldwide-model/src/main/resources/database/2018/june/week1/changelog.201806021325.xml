@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	objectQuotingStrategy="QUOTE_ALL_OBJECTS"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet author="Johnlery" id="init-permissions">
+		<insert tableName="Permission">
+			<column name="PERM_Id">1</column>
+			<column name="PERM_Name">WRITE_PERMISSION</column>
+		</insert>
+		<insert tableName="Permission">
+			<column name="PERM_Id">2</column>
+			<column name="PERM_Name">READ_PERMISSION</column>
+		</insert>
+	</changeSet>
+
+	<changeSet author="Johnlery" id="init-roles">
+		<insert tableName="Role">
+			<column name="ROLE_Id">1</column>
+			<column name="ROLE_Name">ADMIN</column>
+		</insert>
+		<insert tableName="Role">
+			<column name="ROLE_Id">2</column>
+			<column name="ROLE_Name">USER</column>
+		</insert>
+	</changeSet>
+
+	<changeSet author="Johnlery" id="init-role_permission">
+		<insert tableName="Role_Permission">
+			<column name="ROLE_Id">1</column>
+			<column name="PERM_Id">1</column>
+		</insert>
+		<insert tableName="Role_Permission">
+			<column name="ROLE_Id">1</column>
+			<column name="PERM_Id">2</column>
+		</insert>
+	</changeSet>
+
+</databaseChangeLog>

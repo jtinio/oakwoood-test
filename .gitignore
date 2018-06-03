@@ -1,0 +1,25 @@
+# Eclipse
+.classpath
+.project
+.settings/
+.metadata
+.recommenders
+RemoteSystemsTempFiles
+ 
+# Intellij
+.idea/
+*.iml
+*.iws
+ 
+# Mac
+.DS_Store
+ 
+# Maven
+log/
+target/
+
+#java ear,war and jar file
+*.ear
+
+#Eclipse servers folder
+Servers/

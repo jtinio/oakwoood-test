@@ -1,0 +1,150 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.oakwood</groupId>
+	<artifactId>oakwood-worldwide-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>oakwood-worldwide-parent</name>
+	<description>Oakwood Worldwide parent project</description>
+	<modules>
+		<module>oakwood-worldwide-utility</module>
+		<module>oakwood-worldwide-model</module>
+		<module>oakwood-worldwide-dto</module>
+		<module>oakwood-worldwide-repository</module>
+		<module>oakwood-worldwide-service</module>
+		<module>oakwood-worldwide-web</module>
+	</modules>
+	<developers>
+		<developer>
+			<name>Johnlery Tinio</name>
+			<organization>Oakwood Worldwide</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>Pacific Time Zone UTC-08:00</timezone>
+		</developer>
+	</developers>
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-version>1.8</java-version>
+		<war-plugin-version>2.6</war-plugin-version>
+		<ear-plugin-version>2.10</ear-plugin-version>
+		<compiler-plugin-version>3.5.1</compiler-plugin-version>
+		<junit-version>4.12</junit-version>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.7.18</version>
+				<exclusions>
+					<exclusion>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.17</version>
+			</dependency>
+			<dependency>
+				<!-- Import dependency management from Spring Boot -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.5.6.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<build>
+		<!-- <resources> -->
+		<!-- <resource> -->
+		<!-- <directory>src/main/resources</directory> -->
+		<!-- <excludes> -->
+		<!-- <exclude>database/**</exclude> -->
+		<!-- </excludes> -->
+		<!-- </resource> -->
+		<!-- <resource> -->
+		<!-- <directory>src/main/angular</directory> -->
+		<!-- <excludes> -->
+		<!-- <exclude>ui/**</exclude> -->
+		<!-- </excludes> -->
+		<!-- </resource> -->
+		<!-- </resources> -->
+		<pluginManagement>
+			<plugins>
+				<!-- compiler plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler-plugin-version}</version>
+					<configuration>
+						<source>${java-version}</source>
+						<target>${java-version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<!-- test plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<includes>
+							<!-- <include>**/RepositoryTestSuite.class</include> -->
+							<!-- <include>**/ServiceTestSuite.class</include> -->
+							<!-- <include>**/ControllerTestSuite.class</include> -->
+						</includes>
+					</configuration>
+				</plugin>
+				<!-- war plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${war-plugin-version}</version>
+					<configuration>
+						<!-- Exclude ... webapp/resources/** files -->
+						<warSourceExcludes>resources/**</warSourceExcludes>
+						<!-- <webXml>src\main\webapp\WEB-INF\web.xml</webXml> -->
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+						<warName>oakwood-web</warName>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<server>TomcatServer</server>
+						<path>/${project.build.finalName}</path>
+						<update>true</update>
+						<url>http://10.0.1.1:8094/manager/text</url>
+						<!-- <url>http://192.168.0.8:8099/manager/text</url> -->
+						<username></username>
+						<password></password>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	objectQuotingStrategy="QUOTE_ALL_OBJECTS"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<!-- Start Create User Table -->
+	<changeSet author="johnlery" id="Create-User-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		<createTable tableName="UserAccount">
+			<column name="USER_Id" type="INT4">
+				<constraints nullable="false" />
+			</column>
+			<column name="USER_Username" type="VARCHAR(50)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="USER_Password" type="BLOB">
+				<constraints nullable="false" />
+			</column>
+			<column name="USER_FirstName" type="VARCHAR(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="USER_LastName" type="VARCHAR(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="USER_Email" type="VARCHAR(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="USER_Genesis" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="SYSUTCDATETIME()" />
+			<column name="USER_Update" type="TIMESTAMP WITHOUT TIME ZONE" />
+		</createTable>
+	</changeSet>
+	<!-- End Create User Table -->
+
+	<!-- Start Create Role Table -->
+	<changeSet author="johnlery" id="Create-Role-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		<createTable tableName="Role">
+			<column name="ROLE_Id" type="INT4">
+				<constraints nullable="false" />
+			</column>
+			<column name="ROLE_Name" type="VARCHAR(50)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="ROLE_Description" type="VARCHAR(100)" />
+			<column name="ROLE_Genesis" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="SYSUTCDATETIME()" />
+			<column name="ROLE_Update" type="TIMESTAMP WITHOUT TIME ZONE" />
+		</createTable>
+	</changeSet>
+	<!-- End Create Role Table -->
+
+	<!-- Start Create Permission Table -->
+	<changeSet author="johnlery" id="Create-Permission-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		<createTable tableName="Permission">
+			<column name="PERM_Id" type="INT4">
+				<constraints nullable="false" />
+			</column>
+			<column name="PERM_Name" type="VARCHAR(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="PERM_Genesis" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="SYSUTCDATETIME()" />
+			<column name="PERM_Update" type="TIMESTAMP WITHOUT TIME ZONE" />
+		</createTable>
+	</changeSet>
+	<!-- End Create Permission Table -->
+
+	<!-- Start Create User_Role Table -->
+	<changeSet author="johnlery" id="Create-User_Role-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		<createTable tableName="User_Role">
+			<column name="USER_Id" type="INT4">
+				<constraints nullable="false" />
+			</column>
+			<column name="ROLE_Id" type="INT4">
+				<constraints nullable="false" />
+			</column>
+			<column name="USER_ROLE_Genesis"
+				type="TIMESTAMP WITHOUT TIME ZONE"
+				defaultValueComputed="SYSUTCDATETIME()" />
+		</createTable>
+	</changeSet>
+	<!-- End Create User_Role Table -->
+
+	<!-- Start Create Role_Permission Table -->
+	<changeSet author="johnlery"
+		id="Create-Role_Permission-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		<createTable tableName="Role_Permission">
+			<column name="ROLE_Id" type="INT4">
+				<constraints nullable="false" />
+			</column>
+			<column name="PERM_Id" type="INT4">
+				<constraints nullable="false" />
+			</column>
+			<column name="ROLE_PERM_Genesis"
+				type="TIMESTAMP WITHOUT TIME ZONE"
+				defaultValueComputed="SYSUTCDATETIME()" />
+		</createTable>
+	</changeSet>
+	<!-- End Create Role_Permission Table -->
+
+	<!-- Start Create Primary Key -->
+	<changeSet author="johnlery"
+		id="AddPrimaryKeys-User-Role-And-Permission-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		<addPrimaryKey columnNames="USER_Id"
+			constraintName="PK_User" tableName="UserAccount" />
+		<addPrimaryKey columnNames="ROLE_Id"
+			constraintName="PK_Role" tableName="Role" />
+		<addPrimaryKey columnNames="PERM_Id"
+			constraintName="PK_Permission" tableName="Permission" />
+		<addPrimaryKey columnNames="USER_Id, ROLE_Id"	
+			constraintName="PK_UserRole" tableName="User_Role" />
+		<addPrimaryKey columnNames="ROLE_Id, PERM_Id"
+			constraintName="PK_RolePermission" tableName="Role_Permission" />
+	</changeSet>
+	<!-- End Create Primary Key -->
+
+	<!-- Start Table Foreign Key Creation -->
+	<changeSet author="johnlery"
+		id="AddForeignKey-Role-Permission-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		
+		<addForeignKeyConstraint
+			baseColumnNames="USER_Id" baseTableName="User_Role"
+			constraintName="FK_User_Role" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="USER_Id" referencedTableName="UserAccount" />
+		<addForeignKeyConstraint
+			baseColumnNames="ROLE_Id" baseTableName="User_Role"
+			constraintName="FK_Role_User" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ROLE_Id" referencedTableName="Role" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="ROLE_Id" baseTableName="Role_Permission"
+			constraintName="FK_Role_Permission" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ROLE_Id" referencedTableName="Role" />
+		<addForeignKeyConstraint
+			baseColumnNames="PERM_Id" baseTableName="Role_Permission"
+			constraintName="FK_Permission_Role" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="PERM_Id" referencedTableName="Permission" />
+	</changeSet>
+	<!-- End Table Foreign Key Creation -->
+
+	<!-- Start Table Sequence Creation -->
+	<changeSet author="johnlery" id="Create-User-sequence-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		<createSequence catalogName="UserAccount" incrementBy="1"
+			maxValue="9223372036854775807" minValue="1" 
+			sequenceName="seq_user" startValue="1" />
+	</changeSet>
+	<changeSet author="johnlery" id="Create-Role-sequence-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		<createSequence catalogName="Role" incrementBy="1"
+			maxValue="9223372036854775807" minValue="100" 
+			sequenceName="seq_role" startValue="100" />
+	</changeSet>
+	<changeSet author="johnlery"
+		id="Create-Permission-sequence-table"
+		objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+		<createSequence catalogName="Permission"
+			incrementBy="1" maxValue="9223372036854775807" minValue="100"
+			 sequenceName="seq_permission" startValue="100" />
+	</changeSet>
+	<!-- End Table Sequence Creation -->
+
+</databaseChangeLog>

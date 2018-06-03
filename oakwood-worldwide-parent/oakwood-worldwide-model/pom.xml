@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.oakwood</groupId>
+		<artifactId>oakwood-worldwide-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>oakwood-worldwide-model</artifactId>
+	<description>Oakwood Worldwide model module</description>
+	<developers>
+		<developer>
+			<name>Johnlery Tinio</name>
+			<organization>Oakwood Worldwide</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>Pacific Time Zone UTC-08:00</timezone>
+		</developer>
+	</developers>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<changeLogFile>database/changelog-master.xml</changeLogFile>
+					<!-- <driver>org.postgresql.Driver</driver> -->
+					<!-- <url>jdbc:postgresql://localhost:5432/oakwood-test</url> -->
+					<!-- <username>postgres</username> -->
+					<!-- <password>postgres</password> -->
+					<driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+					<url>jdbc:sqlserver://localhost:1433;databaseName=oakwood-test</url>
+					<username>sa</username>
+					<password>Password123!</password>
+					<includeSystemClasspath>false</includeSystemClasspath>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.oakwood</groupId>
+			<artifactId>oakwood-worldwide-dto</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tomcat</groupId>
+					<artifactId>tomcat-jdbc</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.liquibase</groupId> -->
+		<!-- <artifactId>liquibase-core</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.postgresql</groupId> -->
+		<!-- <artifactId>postgresql</artifactId> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+</project>
