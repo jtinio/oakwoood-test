@@ -23,3 +23,9 @@ target/
 
 #Eclipse servers folder
 Servers/
+
+# jrebel
+rebel.xml
+
+# log
+*.log
