@@ -1,6 +1,10 @@
 package com.oakwood.service.user;
 
+import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.oakwood.dto.user.UserDto;
 import com.oakwood.dto.user.UserRegistrationDto;
@@ -20,6 +24,12 @@ public interface UserService {
 	boolean existsByUsername(final String username);
 
 	boolean existsByEmail(final String email);
-	
+
 	Optional<UserDto> getUserById(final int id);
+
+	List<UserDto> getAllUsers();
+
+	Page<UserDto> getUserDatasource(final Pageable pageable);
+
+	Page<UserDto> getUserDatasourceWithSearch(final String search, final Pageable pageable);
 }

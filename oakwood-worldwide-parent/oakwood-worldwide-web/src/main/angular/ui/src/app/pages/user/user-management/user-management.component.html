@@ -1,0 +1,13 @@
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+	<div fxFlex="50%" fxLayoutAlign.sm="center center" fxLayoutAlign.xs="center center">
+		<h2 class="common-font">User Management</h2>
+	</div>
+	<div fxFlex="50%" fxLayoutAlign="end end" fxLayoutAlign.sm="center center" fxLayoutAlign.xs="center center">
+		<button type="button" mat-raised-button color="primary" [routerLink]="['/userCreation']">Create User</button>
+	</div>
+</div>
+<br/>
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" style="padding: 10px;">
+	<app-user-datatable fxFill></app-user-datatable>
+</div>
+<br/>

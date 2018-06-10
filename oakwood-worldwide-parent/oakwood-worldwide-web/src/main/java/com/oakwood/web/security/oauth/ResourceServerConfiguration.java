@@ -38,9 +38,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 			.and().csrf().disable()
 			.httpBasic().disable()
 			.authorizeRequests()
-			.antMatchers("/").permitAll()
-			.antMatchers("/login**").permitAll()
-			.anyRequest().fullyAuthenticated();
+			.antMatchers("/","/login**").permitAll()
+			.antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/**").permitAll()
+			.anyRequest()
+			.fullyAuthenticated();
 //			.and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
 	}
 

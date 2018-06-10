@@ -44,7 +44,8 @@ import com.oakwood.model.role.Role;
 		@ColumnResult(name = "firstName", type = String.class), @ColumnResult(name = "lastName", type = String.class),
 		@ColumnResult(name = "email", type = String.class) }))
 @NamedNativeQueries({
-		@NamedNativeQuery(name = "User.findUserById", query = "SELECT USER_Id as id, USER_Username as username, USER_FirstName as firstName, USER_LastName as lastName, USER_Email as email FROM User where USER_Id = ?1 ", resultSetMapping = "UserDtoMapping"),})
+		@NamedNativeQuery(name = "User.findUserById", query = "SELECT USER_Id as id, USER_Username as username, USER_FirstName as firstName, USER_LastName as lastName, USER_Email as email FROM UserAccount where USER_Id = ?1 ", resultSetMapping = "UserDtoMapping"),
+		@NamedNativeQuery(name = "User.findAllUsers", query = "SELECT USER_Id as id, USER_Username as username, USER_FirstName as firstName, USER_LastName as lastName, USER_Email as email FROM UserAccount", resultSetMapping = "UserDtoMapping"),})
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 8559492030672421962L;

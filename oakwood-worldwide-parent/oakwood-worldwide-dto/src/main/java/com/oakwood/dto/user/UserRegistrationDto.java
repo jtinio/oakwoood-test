@@ -30,7 +30,7 @@ public class UserRegistrationDto extends BaseDto {
 	@JsonProperty("password")
 	@NotNull(message = "{NotNull.password}")
 	@NotEmpty(message = "{NotEmpty.password}")
-	@Size(min = 8, max = 20, message = "{Size.password}")
+	@Size(min = 5, max = 20, message = "{Size.password}")
 	private String password;
 
 	@JsonProperty("matchingPassword")

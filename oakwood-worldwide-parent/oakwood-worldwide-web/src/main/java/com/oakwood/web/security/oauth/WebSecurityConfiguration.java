@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -70,30 +71,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new JwtTokenStore(jwtAccessTokenConverter());
 	}
 
-	// @Override
-	// public void configure(WebSecurity web) throws Exception {
-	// web.ignoring().antMatchers("/","/resources/**", "/static/**",
-	// "/v2/api-docs", "/webjars/**", "/swagger-ui.html",
-	// "/swagger-resources/configuration/ui", "/swagger-resources",
-	// "/swagger-resources/configuration/security", "/denied"
-	// );
-	// }
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/", "/resources/**", "/static/**", "/v2/**", "/webjars/**",
+				"/swagger-ui.html", "/swagger-resources/**");
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and().csrf().disable()
-			.httpBasic().disable()
-			.authorizeRequests().antMatchers("/").permitAll()
-			.antMatchers("/login").permitAll()
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
+				.httpBasic().disable().authorizeRequests().antMatchers("/", "/login").permitAll()
 				// .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				// .antMatchers("/oauth/token").permitAll()
-				// .antMatchers("/v2/api-docs").permitAll()
-				// .antMatchers("/v2/api-docs/**").permitAll()
-				// .antMatchers("/swagger-resources/configuration/ui").permitAll()
-				// .antMatchers("/swagger-ui.html").permitAll()
-			.anyRequest().fullyAuthenticated();
-//			.and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
+				.anyRequest()
+				.fullyAuthenticated();
+		// .and().exceptionHandling().authenticationEntryPoint(new
+		// LoginUrlAuthenticationEntryPoint("/login"));
 	}
 
 }

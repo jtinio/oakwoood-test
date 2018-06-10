@@ -1,0 +1,18 @@
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+	<div fxFlex="50%" fxLayoutAlign.sm="center center" fxLayoutAlign.xs="center center">
+		<h2 class="common-font">User Creation</h2>
+	</div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center">
+	<mat-card>
+		<mat-card-content>
+		  	<form [formGroup]="userForm">
+				<app-user-form [userForm]="userForm"></app-user-form>
+				<div fxLayout="row" fxLayoutAlign="space-around center">
+					<button type="button" mat-raised-button color="warn" [routerLink]="['/userManagement']" >Cancel</button>
+					<button type="button" mat-raised-button color="primary" [disabled]="!userForm.valid" (click)="onSubmit()" >Create</button>
+			    </div>
+			</form>
+		 </mat-card-content>
+	</mat-card>
+</div>

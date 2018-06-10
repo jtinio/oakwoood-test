@@ -1,0 +1,39 @@
+<form [formGroup]="userForm">
+    <div fxLayout="row">
+        <mat-form-field fxFlex="100%">
+            <mat-icon matPrefix color="primary" class="icon-font">account_box</mat-icon>
+            <input id="username" matInput type="text" formControlName="username" placeholder="Username" maxlength="35" required (focus)="openFieldInformation('Username')"/>
+            <mat-hint align="end">{{userForm.controls.username.value?.length || 0}}/35</mat-hint>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row">
+	    <mat-form-field fxFlex="100%">
+	    	<mat-icon matPrefix color="primary" class="icon-font">lock </mat-icon>
+	        <input matInput type="password" formControlName="password" placeholder="Password" maxlength="20" required (focus)="openFieldInformation('Password')"/>
+	    </mat-form-field>
+	</div>
+	<div fxLayout="row">
+	    <mat-form-field fxFlex="100%">
+	    	<mat-icon matPrefix color="primary" class="icon-font">lock </mat-icon>
+	        <input matInput type="password" formControlName="matchingPassword" placeholder="Re-Enter Password" maxlength="20" validateEqual="form.controls['registeredPassword']" required (focus)="openFieldInformation('Re-Enter Password')"/>
+	    </mat-form-field>
+	</div>
+    <div fxLayout="row">
+        <mat-form-field fxFlex="100%">
+            <input matInput type="text" formControlName="firstName" placeholder="First Name" maxlength="35" required (focus)="openFieldInformation('First Name')"/>
+            <mat-hint align="end">{{userForm.controls.firstName.value?.length || 0}}/35</mat-hint>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row">
+        <mat-form-field fxFlex="100%">
+            <input matInput type="text" formControlName="lastName" placeholder="Last Name" maxlength="35" required (focus)="openFieldInformation('Last Name')"/>
+            <mat-hint align="end">{{userForm.controls.lastName.value?.length || 0}}/35</mat-hint>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row">
+        <mat-form-field fxFlex="100%" >
+            <mat-icon matPrefix color="primary" class="icon-font">email </mat-icon>
+            <input matInput type="email" formControlName="email" placeholder="Email" required/>
+        </mat-form-field>
+    </div>
+</form>

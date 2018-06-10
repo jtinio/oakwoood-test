@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+    <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon>menu</mat-icon></button>
+    <span class="example-spacer"></span>
+    <span fxLayoutAlign="center center">Oakwood Worldwide</span>
+</mat-toolbar>
+
+<mat-menu #appMenu="matMenu">
+  <button mat-menu-item [routerLink]="['home']"> Home </button>
+  <button mat-menu-item> Profile </button> 
+  <button mat-menu-item [routerLink]="['userManagement']"> User Management </button>
+  <button mat-menu-item color="warn" (click)="onLogout()"> Logout </button>
+</mat-menu>

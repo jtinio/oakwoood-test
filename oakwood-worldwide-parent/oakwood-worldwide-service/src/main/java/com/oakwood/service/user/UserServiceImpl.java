@@ -1,8 +1,13 @@
 package com.oakwood.service.user;
 
+import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.oakwood.dto.user.UserDto;
@@ -27,6 +32,7 @@ public class UserServiceImpl implements UserService {
 		this.userRepository = userRepository;
 	}
 
+	@Transactional
 	@Override
 	public Optional<Integer> createUser(final UserRegistrationDto userRegistrationDto)
 			throws UsernameExistException, EmailExistException {
@@ -63,6 +69,32 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Optional<UserDto> getUserById(final int id) {
 		return userRepository.findUserById(id);
+	}
+
+	@Override
+	public List<UserDto> getAllUsers() {
+		return userRepository.findAllUsers();
+	}
+
+	@Override
+	public Page<UserDto> getUserDatasource(final Pageable pageable) {
+		return userRepository.findUserByPageable(pageable)
+				.map(this::convertPageResultToDto);
+	}
+
+	@Override
+	public Page<UserDto> getUserDatasourceWithSearch(final String search, final Pageable pageable) {
+		return userRepository.findUserBySearchAndPageable(search, pageable)
+				.map(this::convertPageResultToDto);
+	}
+
+	private UserDto convertPageResultToDto(final Object[] result) {
+		final UserDto dto = new UserDto();
+		dto.setId((Integer) result[0]);
+		dto.setFirstName((String) result[1]);
+		dto.setLastName((String) result[2]);
+		dto.setEmail((String) result[2]);
+		return dto;
 	}
 
 }

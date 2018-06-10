@@ -36,7 +36,7 @@ public class StartupServiceImpl implements StartupService {
 			final Role role = roleRepository.findOne(1);
 			final User user = new User();
 			user.setUsername("admin");
-			user.setPassword(BCrypt.hashpw("Oak123!", BCrypt.gensalt()).getBytes());
+			user.setPassword(BCrypt.hashpw("admin", BCrypt.gensalt()).getBytes());
 			user.setFirstName("Admin");
 			user.setLastName("Admin");
 			user.setEmail("jtinio@oakwood.com");

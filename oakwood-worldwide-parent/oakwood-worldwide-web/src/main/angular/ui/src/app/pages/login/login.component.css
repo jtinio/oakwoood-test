@@ -1,0 +1,12 @@
+.login-container {
+	display: flex;
+	padding: 5% 0;
+}
+
+.icon-font {
+	font-size: 24px;
+}
+
+.input-field {
+  color: white !important;
+}

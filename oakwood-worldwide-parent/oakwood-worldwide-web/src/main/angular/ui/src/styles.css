@@ -1,2 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* regular style toast */
+@import "~ngx-toastr/toastr.css";
+
+/* google material icons*/
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+.login-background {
+	background:
+		url('https://www.oakwood.com/binaries/content/gallery/oakwood/hero-images/homepage-new.jpg/homepage-new.jpg/oakwood%3Alg')
+		no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
