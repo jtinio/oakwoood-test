@@ -29,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public Optional<UserLoginDto> loginByUsername(final String username) {
-		return userRepository.findAccountIdAndPasswordByUsername(username, new PageRequest(0, 1))
+		return userRepository.findAccountIdAndPasswordByUsername(username, PageRequest.of(0, 1))
 				.map(result -> extractAccountIdAndPasswordResult(result)).findFirst();
 	}
 

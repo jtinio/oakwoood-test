@@ -14,7 +14,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 
@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @since 06/02/2018
  */
 @Configuration
-public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
+public class StaticResourceConfiguration implements WebMvcConfigurer {
 
 	/**
 	 * Use external resources when deployed the jar in the linux file system
@@ -32,7 +32,6 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-		super.addResourceHandlers(registry);
 	}
 
 	@Bean

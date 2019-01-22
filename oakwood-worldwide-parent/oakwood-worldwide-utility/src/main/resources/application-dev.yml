@@ -1,0 +1,25 @@
+logging:
+  file: logs/application-debug.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: ERROR
+    com.oakwood: DEBUG
+    org.hibernate: ERROR
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: postgres
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5433/oakwood-test
+    username: postgres
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        generate_statistics: true
+    show-sql: true
+  output:
+    ansi:
+      enabled: DETECT

@@ -4,7 +4,7 @@
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
 	<!-- Start Create User Table -->
 	<changeSet author="johnlery" id="Create-User-table"
@@ -28,7 +28,7 @@
 			<column name="USER_Email" type="VARCHAR(100)">
 				<constraints nullable="false" unique="true" />
 			</column>
-			<column name="USER_Genesis" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="SYSUTCDATETIME()" />
+			<column name="USER_Genesis" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()" />
 			<column name="USER_Update" type="TIMESTAMP WITHOUT TIME ZONE" />
 		</createTable>
 	</changeSet>
@@ -45,7 +45,7 @@
 				<constraints nullable="false" unique="true" />
 			</column>
 			<column name="ROLE_Description" type="VARCHAR(100)" />
-			<column name="ROLE_Genesis" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="SYSUTCDATETIME()" />
+			<column name="ROLE_Genesis" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()" />
 			<column name="ROLE_Update" type="TIMESTAMP WITHOUT TIME ZONE" />
 		</createTable>
 	</changeSet>
@@ -61,7 +61,7 @@
 			<column name="PERM_Name" type="VARCHAR(100)">
 				<constraints nullable="false" unique="true" />
 			</column>
-			<column name="PERM_Genesis" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="SYSUTCDATETIME()" />
+			<column name="PERM_Genesis" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()" />
 			<column name="PERM_Update" type="TIMESTAMP WITHOUT TIME ZONE" />
 		</createTable>
 	</changeSet>
@@ -79,7 +79,7 @@
 			</column>
 			<column name="USER_ROLE_Genesis"
 				type="TIMESTAMP WITHOUT TIME ZONE"
-				defaultValueComputed="SYSUTCDATETIME()" />
+				defaultValueComputed="NOW()" />
 		</createTable>
 	</changeSet>
 	<!-- End Create User_Role Table -->
@@ -97,7 +97,7 @@
 			</column>
 			<column name="ROLE_PERM_Genesis"
 				type="TIMESTAMP WITHOUT TIME ZONE"
-				defaultValueComputed="SYSUTCDATETIME()" />
+				defaultValueComputed="NOW()" />
 		</createTable>
 	</changeSet>
 	<!-- End Create Role_Permission Table -->

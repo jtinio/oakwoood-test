@@ -28,14 +28,14 @@
 				<version>3.5.1</version>
 				<configuration>
 					<changeLogFile>database/changelog-master.xml</changeLogFile>
-					<!-- <driver>org.postgresql.Driver</driver> -->
-					<!-- <url>jdbc:postgresql://localhost:5432/oakwood-test</url> -->
-					<!-- <username>postgres</username> -->
-					<!-- <password>postgres</password> -->
-					<driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
-					<url>jdbc:sqlserver://localhost:1433;databaseName=oakwood-test</url>
-					<username>sa</username>
-					<password>Password123!</password>
+					<driver>org.postgresql.Driver</driver>
+					<url>jdbc:postgresql://localhost:5433/oakwood-test</url>
+					<username>postgres</username>
+					<password>postgres</password>
+					<!-- <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver> -->
+					<!-- <url>jdbc:sqlserver://localhost:1433;databaseName=oakwood-test</url> -->
+					<!-- <username>sa</username> -->
+					<!-- <password>Password123!</password> -->
 					<includeSystemClasspath>false</includeSystemClasspath>
 				</configuration>
 			</plugin>
@@ -55,26 +55,21 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.tomcat</groupId>
-					<artifactId>tomcat-jdbc</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.liquibase</groupId> -->
-		<!-- <artifactId>liquibase-core</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.postgresql</groupId> -->
-		<!-- <artifactId>postgresql</artifactId> -->
-		<!-- <scope>runtime</scope> -->
-		<!-- </dependency> -->
 		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>3.5.1</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.microsoft.sqlserver</groupId> -->
+		<!-- <artifactId>mssql-jdbc</artifactId> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- </dependency> -->
 	</dependencies>
 </project>

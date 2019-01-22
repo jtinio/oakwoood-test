@@ -3,7 +3,6 @@ package com.oakwood.web.api.exceptionhandler;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.context.config.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,6 +15,7 @@ import com.oakwood.dto.rest.resource.ErrorResource;
 import com.oakwood.dto.rest.resource.FieldErrorResource;
 import com.oakwood.dto.rest.resource.MessageResource;
 import com.oakwood.utility.exception.EmailExistException;
+import com.oakwood.utility.exception.ResourceNotFoundException;
 import com.oakwood.utility.exception.UsernameExistException;
 import com.oakwood.web.api.exception.InvalidRestRequestException;
 import com.oakwood.web.resource.ApiError;

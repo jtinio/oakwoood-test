@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -29,14 +30,17 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	private final TokenStore tokenStore;
 	private final AuthenticationManager authenticationManager;
 	private final UserDetailsService userDetailsService;
+	private final PasswordEncoder passwordEncoder;
 
 	public AuthorizationServerConfiguration(JwtAccessTokenConverter jwtAccessTokenConverter, TokenStore tokenStore,
-			AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
+			AuthenticationManager authenticationManager, UserDetailsService userDetailsService,
+			PasswordEncoder passwordEncoder) {
 		super();
 		this.jwtAccessTokenConverter = jwtAccessTokenConverter;
 		this.tokenStore = tokenStore;
 		this.authenticationManager = authenticationManager;
 		this.userDetailsService = userDetailsService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -58,7 +62,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 				.authorizedGrantTypes(OAuthConstants.GRANT_TYPE_PASSWORD, OAuthConstants.GRANT_TYPE_REFRESH_TOKEN)
 				.scopes(OAuthConstants.SCOPE_READ, OAuthConstants.SCOPE_WRITE)
 				.resourceIds(OAuthConstants.RESOURCE_ID)
-				.secret(OAuthConstants.SECRET)
+				.secret(passwordEncoder.encode(OAuthConstants.SECRET))
 				.accessTokenValiditySeconds(OAuthConstants.ACCESS_TOKEN_VALIDITY_IN_SECONDS);
 //				.redirectUris("/login");
 	}

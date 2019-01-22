@@ -1,6 +1,7 @@
 package com.oakwood.service.startup;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -33,14 +34,16 @@ public class StartupServiceImpl implements StartupService {
 	@Override
 	public void createDefaultAdminIfNotFound() {
 		if (!userRepository.existsByUsername("admin")) {
-			final Role role = roleRepository.findOne(1);
+			final Optional<Role> role = roleRepository.findById(1);
 			final User user = new User();
 			user.setUsername("admin");
 			user.setPassword(BCrypt.hashpw("admin", BCrypt.gensalt()).getBytes());
 			user.setFirstName("Admin");
 			user.setLastName("Admin");
 			user.setEmail("jtinio@oakwood.com");
-			user.setRoles(Arrays.asList(role));
+			if(role.isPresent()) {
+				user.setRoles(Arrays.asList(role.get()));
+			}
 			userRepository.save(user);
 		}
 	}

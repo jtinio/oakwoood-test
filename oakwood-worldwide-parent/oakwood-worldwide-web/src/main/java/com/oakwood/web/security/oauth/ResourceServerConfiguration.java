@@ -1,5 +1,6 @@
 package com.oakwood.web.security.oauth;
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -40,6 +41,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 			.authorizeRequests()
 			.antMatchers("/","/login**").permitAll()
 			.antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/**").permitAll()
+			.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
 			.anyRequest()
 			.fullyAuthenticated();
 //			.and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));

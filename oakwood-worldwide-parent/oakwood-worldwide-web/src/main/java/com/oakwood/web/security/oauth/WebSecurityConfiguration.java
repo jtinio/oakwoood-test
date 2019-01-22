@@ -1,5 +1,7 @@
 package com.oakwood.web.security.oauth;
 
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +14,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import com.oakwood.utility.constants.OAuthConstants;
 import com.oakwood.web.security.config.DefaultRolesPrefixPostProcessor;
 
 /**
@@ -50,7 +52,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new PasswordEncoder() {
+
+			@Override
+			public String encode(CharSequence rawPassword) {
+				return BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt());
+			}
+
+			@Override
+			public boolean matches(CharSequence rawPassword, String encodedPassword) {
+				return BCrypt.checkpw(rawPassword.toString(), encodedPassword);
+			}
+
+		};
 	}
 
 	@Override
@@ -62,7 +76,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
 		final JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-		jwtAccessTokenConverter.setSigningKey("OakwoodWorldwide");
+		jwtAccessTokenConverter.setSigningKey(OAuthConstants.SECRET);
 		return jwtAccessTokenConverter;
 	}
 
@@ -73,18 +87,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/", "/resources/**", "/static/**", "/v2/**", "/webjars/**",
-				"/swagger-ui.html", "/swagger-resources/**");
+		web.ignoring().antMatchers("/", "/resources/**", "/static/**", "/v2/**", "/webjars/**", "/swagger-ui.html",
+				"/swagger-resources/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
 				.httpBasic().disable().authorizeRequests().antMatchers("/", "/login").permitAll()
+				.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
 				// .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				// .antMatchers("/oauth/token").permitAll()
-				.anyRequest()
-				.fullyAuthenticated();
+				.anyRequest().fullyAuthenticated();
 		// .and().exceptionHandling().authenticationEntryPoint(new
 		// LoginUrlAuthenticationEntryPoint("/login"));
 	}
